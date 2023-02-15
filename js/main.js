@@ -15,41 +15,133 @@ const spinWheelValues = {
 }
 
 const topic = {
-    tvShows : [ "Band of Brothers", "Breaking Bad", "Chernobyl", "The Wire", "Game of Thrones", "Avatar: The Last Airbender", "The Sopranos", "Rick and Morty", 
-    "The World at War", , "Our Planet", "The Blue Planet", "The Twilight Zone", "Life", "The Civil War", "Sherlock", "Friends", "The Office", "The Simpsons",
-     "Black Mirror", "The Marvelous Mrs. Maisel", "The Mandalorian", "The Boys", "Stranger Things", "House of Cards", "The Crown", "The West Wing", "True Detective",
+    tvShows : [ "Band of Brothers", "Breaking Bad", "Chernobyl", "The Wire", "Game of Thrones", "Avatar The Last Airbender", "The Sopranos", "Rick and Morty", 
+    "The World at War", "Our Planet", "The Blue Planet", "The Twilight Zone", "Life", "The Civil War", "Sherlock", "Friends", "The Office", "The Simpsons",
+     "Black Mirror", "The Mandalorian", "The Boys", "Stranger Things", "House of Cards", "The Crown", "The West Wing", "True Detective",
     "Better Call Saul", "Firefly", "Atlanta", "The Expanse", "Deadwood", "Hannibal"]
     }
 
-
+const squareTextValues = [
+    [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],
+    [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],
+    [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],
+    [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+]
 
 const wheelStatus = null
 const usedLetters = []
 const player1Score = 0
 const player2Score = 0
 const gameRound = 1
-const playButton = document.getElementById('play-button')
+const playButtonEl = document.getElementById('play-button')
 const wheelEl = document.getElementById('spin-status')
-const letterEl = document.querySelector('alphabets')
+const alphabetEl = document.querySelector('.alphabets')
+const letterboardEl = document.querySelector('.letterboard')
+const spinWheelEl = document.getElementById('spin-status')
+let activePuzzle = ''
+let xCord = 0
+let yCord = 0
 
-playButton.addEventListener('click', function(){
-    // spinwheel()
+
+//  Initializing the game, Clicking Play Button
+playButtonEl.addEventListener('click', function(){
+    clearBoard()
     randPuzzle()
+    const splitWords = activePuzzle.split(' ')
+
+    if (splitWords.length >= 3){
+        renderLetterboard(2,0)
+    } else if ( splitWords.length <=2) {
+        renderLetterboard(2,1)
+    }
+})
+
+// Spinning the wheel
+spinWheelEl.addEventListener('click', function(){
+    spinWheel()
+})
+
+// Alphabet input
+
+alphabetEl.addEventListener('click',function(evt) {
+    const letterInputEl = `${evt.target.id}`
+
+    console.log((!usedLetters.includes(letterInputEl)))
+
+    if(!usedLetters.includes(letterInputEl)){
+        for (let i = 0; i <squareTextValues.length;i++){
+            for(let j = 0; j<squareTextValues[i].length;j++){
+                if( letterInputEl == squareTextValues[i][j]){
+                    const squareDisplay = document.getElementById(`${j+xCord}-${i+yCord}`)
+                    squareDisplay.textContent = squareTextValues[i][j] 
+                    usedLetters.push(squareTextValues[i][j])
+                    const inputLetterStyle = document.getElementById(letterInputEl)
+                    inputLetterStyle.style.color = 'white'
+                    console.log(usedLetters)
+                }
+            }
+        }
+    }else{}
+})
 
 
 
+function clearLetterInputs(){
+    
 }
-)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 function spinWheel(){
     const wheelKey = Object.keys(spinWheelValues)
     const wheelStatus = spinWheelValues[wheelKey[Math.floor(Math.random()*wheelKey.length)]]
-    return wheelSeg
+    spinWheelEl.textContent = `${wheelStatus}`
 }
 
 function randPuzzle(){
-   const activePuzzle = topic.tvShows[Math.floor(Math.random()*topic.tvShows.length)]
+   activePuzzle = topic.tvShows[Math.floor(Math.random()*topic.tvShows.length)]
     return console.log(activePuzzle)
+}
+
+function clearBoard(){
+    for (let i = 0; i < squareTextValues.length; i++){
+        for( let j = 0; j<squareTextValues[i].length; j++){
+            squareTextValues[i][j] = ' '
+            const squareDisplay = document.getElementById(`${j}-${i}`)
+            squareDisplay.textContent = ' '
+            squareDisplay.style.backgroundColor ='#1a9988'
+        }
+    }
+}
+
+
+
+
+function renderLetterboard(xOffset,yOffset) {
+    const splitWords = activePuzzle.split(' ')
+    for (let i = 0; i < splitWords.length; i++){
+        for( let j = 0; j<splitWords[i].length; j++){
+            const splitLetters = splitWords[i].split('')
+            const squareDisplay = document.getElementById(`${j+xOffset}-${i+yOffset}`)
+            squareTextValues[i][j] = (`${splitLetters[j]}`).toLowerCase()
+            squareDisplay.style.backgroundColor = "white"
+            xCord = xOffset
+            yCord = yOffset
+            console.log(squareTextValues)
+            // squareDisplay.textContent = squareTextValues[i][j]
+        }  
+    } 
 }

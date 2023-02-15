@@ -26,6 +26,8 @@ h1 {
     border: 2px solid black;
     margin: 5px;
     text-align: center;
+    cursor : pointer;
+    font-size: 50px;
 
 }
 
@@ -34,7 +36,9 @@ h1 {
     width: 500px;
     height: 80px;
     border: 2px solid black;
-    margin: 5px;
+    text-align: center;
+    font-size: 75px;
+    
 }
 
 .scoreboard {
@@ -55,15 +59,24 @@ h1 {
     margin: 20px auto;
     height: 50px;
     width: 100px;
+    cursor : pointer;
 }
 
 .alphabets {
     display: flex;
     justify-content: center;
-    
+   
 }
 
 .letters {
     font-size: 50px;
     padding: 5px;
+    cursor : pointer;
+}
+
+.square {
+    font-size: 50px;
+    text-align: center;
+    text-transform: capitalize;
+    padding: auto;
 }
