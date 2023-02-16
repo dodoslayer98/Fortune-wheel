@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fortune Wheel</title>
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/style.css">
     <script defer src="js/main.js"  ></script>
 </head>
 <body>
@@ -13,7 +13,7 @@
     <h1>Fortune Wheel</h1>
 
     <div class="spin-wheel">
-        <div id="spin-status">SPIN ME MOFO</div>
+        <div id="spin-status">SPIN ME YA MOFO</div>
     </div>
 
     <div class="status">
@@ -121,6 +121,30 @@
 
     <button type="button" id="play-button">Play</button>
 
+        <div id="play-modal" class="modal">
+            <div id="play-modal-content">
+                <div id="play-modal-header">
+                    <span class="close-play-modal">&times</span>
+                    <h3>Input Player Names</h3>
+                </div>
+                <div id="play-modal-body">
+                    <form>
+                        <div class = "forms">
+                            <label for="player-one-name">Player One</label>
+                            <input type ="text" id="player-one-name" placeholder="Enter Player One Name">
+                        </div>  
+                        <div class = "forms">
+                            <label for="player-two-name">Player Two</label>
+                            <input type ="text" id="player-two-name" placeholder="Enter Player Two Name">
+                        </div> 
+                        <button type="button" id="start-game">Start Game</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+   <!-- <input type="submit" value="Start Game"> -->
+
+
     <div class = 'scoreboard'>
         <div class="player-one-scoreboard">
             <div id="player-one">Player 1 Total:</div>
@@ -128,10 +152,9 @@
         </div>
 
         <div class="player-two-scoreboard">
-            <div id="player-two">Player 1 Total:</div>
+            <div id="player-two">Player 2 Total:</div>
             <div id="player-two-wins">Wins:</div>
         </div>
     </div>
-    
 </body>
 </html>
